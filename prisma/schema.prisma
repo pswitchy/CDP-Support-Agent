@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text
+  url       String   @unique
+  cdp       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([cdp])
+  @@index([url])
+  @@index([title])
+}
+
+model ChatMessage {
+  id        String    @id @default(cuid())
+  role      Role
+  content   String    @db.Text
+  cdp       CDP?
+  sessionId String
+  createdAt DateTime  @default(now())
+  
+  @@index([sessionId])
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  sessionId String
+  userId    String
+  query     String   @db.Text
+  response  String   @db.Text
+  cdp       CDP?
+  timestamp DateTime @default(now())
+
+  @@index([sessionId, userId])
+  @@index([cdp])
+  @@index([timestamp])
+}
+
+model QueryAnalytics {
+  id         String    @id @default(cuid())
+  query      String    @db.Text
+  cdp        CDP?
+  sessionId  String
+  successful Boolean
+  timestamp  DateTime
+  response   String?   @db.Text
+  duration   Int       // in milliseconds
+  
+  @@index([timestamp])
+  @@index([cdp])
+}
+
+model UserSession {
+  id        String    @id
+  lastSeen  DateTime
+  metadata  Json?
+  
+  @@index([lastSeen])
+}
+
+enum CDP {
+  SEGMENT
+  MPARTICLE
+  LYTICS
+  ZEOTAP
+}
+
+enum Role {
+  USER
+  ASSISTANT
+}
