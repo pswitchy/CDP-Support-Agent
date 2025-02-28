@@ -8,8 +8,6 @@ The CDP Support Agent is a sophisticated support system designed to assist users
 
 Current System Configuration:
 - **UTC Time Format**: YYYY-MM-DD HH:MM:SS
-- **Current System Time**: 2025-02-28 19:45:13
-- **System User**: drhousevicodine
 
 ## Features
 
@@ -27,10 +25,10 @@ Current System Configuration:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/cdp-support-agent.git
+git clone https://github.com/pswitchy/cdp-support-agent.git
 
 # Navigate to project directory
-cd cdp-support-agent1
+cd cdp-support-agent
 
 # Install dependencies
 npm install
@@ -219,10 +217,6 @@ The system implements comprehensive error handling:
 - User authentication
 - Error logging
 - Secure API endpoints
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
